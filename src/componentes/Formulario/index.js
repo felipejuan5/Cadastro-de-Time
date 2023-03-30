@@ -5,18 +5,8 @@ import ListaSuspensa from '../ListaSuspensa'
 import './Formulario.css'
 
 
-const Formulario = () => {
+const Formulario = (props) => {
 
-    const times = [       
-        '',
-        'Programação',
-        'Front-End',
-        'Data Science',
-        'Ux e Design',
-        'Mobile',
-        'Inovação e Gestão'
-
-    ]
 
     const [nome,setNome] = useState('')
     const [cargo,setCargo] = useState('')
@@ -25,8 +15,19 @@ const Formulario = () => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
-        console.log('foi salvo', nome, cargo, imagem,time)
+        props.aoColaboradoresCadastrado({
+            nome,
+            cargo,
+            imagem,
+            time
+
+        })
+        setNome('') 
+        setCargo('') 
+        setImagem('') 
+        setTime('')
     }
+    
 
     return(
         <section className='formulario'>
@@ -57,7 +58,7 @@ const Formulario = () => {
                 <ListaSuspensa 
                     obrigatorio={true} 
                     label="Times" 
-                    itens={times}
+                    itens={props.NomedosTimes}
                     valor = {time}
                     aoAlterado = {valor => setTime(valor)}
                 />
